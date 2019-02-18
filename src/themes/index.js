@@ -1,9 +1,14 @@
 const applyTheme = (name) => {
   const theme = {
+    fontFamily: 'Roboto',
+    fontFamilySecond: 'Roboto Condensed',
+    fontSize: '1.63vw',
+    fontSizeH1: '1.55em',
+    fontSizeMicro: '0.7em',
     backgroundColor: (() => {
       switch (name) {
         case 'day':
-          return '#F1F3F7';
+          return '#FFFFFF';
         case 'night':
           return '#232427';
         default:
@@ -13,9 +18,9 @@ const applyTheme = (name) => {
     backgroundColorSecond: (() => {
       switch (name) {
         case 'day':
-          return '#ECEEF2';
+          return '#F9F9FD';
         case 'night':
-          return '#151619';
+          return '#27282B';
         default:
           return 'hotpink';
       }
@@ -23,9 +28,9 @@ const applyTheme = (name) => {
     elementColor: (() => {
       switch (name) {
         case 'day':
-          return '#222223';
+          return '#3B3B3B';
         case 'night':
-          return '#DDDDDE';
+          return '#E0E0E1';
         default:
           return 'hotpink';
       }
@@ -33,21 +38,11 @@ const applyTheme = (name) => {
     elementColorSecond: (() => {
       switch (name) {
         case 'day':
-          return '#A9ABAD';
+          return '#DDDCDC';
         case 'night':
-          return '#57585A';
+          return '#5B5B5D';
         default:
           return 'hotpink';
-      }
-    }),
-    logoImage: (() => {
-      switch (name) {
-        case 'day':
-          return 'day';
-        case 'night':
-          return 'night'; 
-        default:
-          return 'no-logo';
       }
     }),
     positionThemeSwitcher: (() => {

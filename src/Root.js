@@ -9,6 +9,7 @@ import Logo from './components/ui/Logo';
 
 import Request from './components/pages/Request';
 import Weather from './components/pages/Weather';
+import Settings from './components/pages/Settings';
 
 
 import applyTheme from './themes';
@@ -17,12 +18,13 @@ import gear from './resources/settings.svg';
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+  @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400');
   html {
     margin: 0;
     padding: 0;
     background-color: ${p => p.theme.backgroundColor};
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.63vw;
+    font-family: '${p => p.theme.fontFamily}', sans-serif;
+    font-size: ${p => p.theme.fontSize};
     color: ${p => p.theme.elementColor};
   }
   body {
@@ -34,7 +36,7 @@ const AppContainer = styled.div`
   height: 100vh;
   margin: 0 auto;
   padding: 10vh 4.25vw;
-  padding-top: 10vh;
+  padding-bottom: 0;
   box-sizing: border-box;
   overflow: hidden;
 `;
@@ -86,6 +88,22 @@ const TitFly = posed.div({
     }
   }
 });
+const SettingsDepart = posed.div({
+  show: {
+    position: 'absolute', top: 0, zIndex: 999,
+    right: 0,
+    transition: {
+      right: { ease: 'easeOut', duration: 300 }
+    }
+  },
+  hide: {
+    position: 'absolute', top: 0, zIndex: 999,
+    right: -300,
+    transition: {
+      right: { ease: 'easeOut', duration: 300 }
+    }
+  }
+});
 const PageFading = posed.div({
   enter: { opacity: 1, delay: 300, beforeChildren: true },
   exit: { opacity: 0 }
@@ -102,8 +120,11 @@ const App = ({ state }) => (
             <TitFly pose={location.pathname === '/' ? 'show' : 'hide'}>
               <TitBird />
             </TitFly>
+            <SettingsDepart pose={state.settings.show ? 'show' : 'hide'}>
+              <Settings settings={state.settings} />
+            </SettingsDepart>
             <Header>
-              <Logo />
+              <Logo theme={state.settings.theme} />
               <ShowSettings />
             </Header>
             <Content>
@@ -125,7 +146,9 @@ const App = ({ state }) => (
 
 
 const storeToProps = store => ({
-  state: store,
+  state: {
+    settings: store.settings,
+  },
 });
 const Root = connect(storeToProps)(App);
 
