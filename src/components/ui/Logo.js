@@ -8,14 +8,12 @@ const Image = styled.div`
   width: 11.2vw;
   min-width: 115px;
   height: 5vh;
-  background: ${(p) => {
-    return `url('${p.theme.logoImage === 'day' ? logoDay : logoNight}') no-repeat left top`;
-  }};
+  background: url('${p => p.theme === 'day' ? logoDay : logoNight}') no-repeat;
   background-size: contain;
 `;
 
-const Logo = () => (
-  <Image />
-)
+const Logo = React.memo(props => (
+  <Image theme={props.theme} />
+));
 
 export default Logo;
