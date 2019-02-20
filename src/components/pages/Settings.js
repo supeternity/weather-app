@@ -3,6 +3,10 @@ import styled from 'styled-components';
 
 import Switcher from '../ui/Switcher';
 
+import { connect } from 'react-redux';
+import { toggleSettingsShow, toggleTheme } from '../../actions/settings';
+
+
 const Page = styled.div`
   width: 38vw;
   height: 100vh;
@@ -55,38 +59,51 @@ const Disclamer = styled.div`
   font-size: ${p => p.theme.fontSizeMicro};
   text-align: right;
   color: ${p => p.theme.elementColorSecond};
-
 `;
 
-const Settings = React.memo(props => (
-  <Page>
-    <Header>
-      Настройки
-      <Close>×</Close>
-    </Header>
-    <Item>
-      <Name>Ночная тема</Name>
-      <Value>
-        <Switcher trigger={props.settings.theme} />
-      </Value>
-    </Item>
-    <Item unactive>
-      <Name>Источник данных</Name>
-      <Value>
-        MetaWeather.com
-      </Value>
-    </Item>
-    <Item unactive>
-      <Name>Язык и система мер</Name>
-      <Value>
-        Русский / C°
-      </Value>
-    </Item>
-    <Disclamer>
-      Dmitry Raykov for <span style={{color: 'red'}}>Y</span>andex, test task<br />
-      2019 All Rights reserved
-    </Disclamer>
-  </Page>
-));
+export class Settings extends React.Component {
+  render () {
+    return (
+      <Page>
+        <Header>
+          Настройки
+          <Close onClick={() => {this.props.toggleSettingsShow(this.props.settings.show)}}>
+            ×</Close>
+        </Header>
+        <Item>
+          <Name>Ночная тема</Name>
+          <Value onClick={() => {this.props.toggleTheme(this.props.settings.theme)}}>
+            <Switcher trigger={this.props.settings.theme} />
+          </Value>
+        </Item>
+        <Item unactive>
+          <Name>Источник данных</Name>
+          <Value>
+            MetaWeather.com
+          </Value>
+        </Item>
+        <Item unactive>
+          <Name>Язык и система мер</Name>
+          <Value>
+            Русский / C°
+          </Value>
+        </Item>
+        <Disclamer>
+          Dmitry Raykov for <span style={{color: 'red'}}>Y</span>andex, test task<br />
+          2019 All Rights reserved
+        </Disclamer>
+      </Page>
+    )
+  }
+}
 
-export default Settings;
+
+const mapStateToProps = store => ({
+  settings: store.settings,
+});
+const mapDispatchToProps = dispatch => ({
+    toggleSettingsShow: value => dispatch(toggleSettingsShow(value)),
+    toggleTheme: value => dispatch(toggleTheme(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

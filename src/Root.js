@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Switch } from 'react-router-dom';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
@@ -10,6 +9,9 @@ import Logo from './components/ui/Logo';
 import Request from './components/pages/Request';
 import Weather from './components/pages/Weather';
 import Settings from './components/pages/Settings';
+
+import { connect } from 'react-redux';
+import { toggleSettingsShow } from './actions/settings';
 
 
 import applyTheme from './themes';
@@ -91,16 +93,16 @@ const TitFly = posed.div({
 const SettingsDepart = posed.div({
   show: {
     position: 'absolute', top: 0, zIndex: 999,
-    right: 0,
+    right: 0 + '%',
     transition: {
-      right: { ease: 'easeOut', duration: 300 }
+      right: { ease: 'easeOut', duration: 900 }
     }
   },
   hide: {
     position: 'absolute', top: 0, zIndex: 999,
-    right: -300,
+    right: -100 + '%',
     transition: {
-      right: { ease: 'easeOut', duration: 300 }
+      right: { ease: 'easeOut', duration: 900 }
     }
   }
 });
@@ -110,46 +112,50 @@ const PageFading = posed.div({
 });
 
 
-const App = ({ state }) => (
-  <Router>
-    <Route
-      render = {({ location }) => (
-        <ThemeProvider theme={applyTheme(state.settings.theme)}>
-          <AppContainer>
-            <GlobalStyle />
-            <TitFly pose={location.pathname === '/' ? 'show' : 'hide'}>
-              <TitBird />
-            </TitFly>
-            <SettingsDepart pose={state.settings.show ? 'show' : 'hide'}>
-              <Settings settings={state.settings} />
-            </SettingsDepart>
-            <Header>
-              <Logo theme={state.settings.theme} />
-              <ShowSettings />
-            </Header>
-            <Content>
-              <PoseGroup>
-                <PageFading key={`page-${location.pathname}`}>
-                  <Switch location={location}>
-                    <Route exact path="/" component={Request} key="request" />
-                    <Route path="/weather" component={Weather} key="weather" />
-                  </Switch>
-                </PageFading>
-              </PoseGroup>
-            </Content>
-          </AppContainer>
-        </ThemeProvider>
-      )}
-    />
-  </Router>
-);
+export class Root extends React.Component {
+  render () {
+    return (
+      <Router>
+        <Route
+          render = {({ location }) => (
+            <ThemeProvider theme={applyTheme(this.props.settings.theme)}>
+              <AppContainer>
+                <GlobalStyle />
+                <TitFly pose={location.pathname === '/' ? 'show' : 'hide'}>
+                  <TitBird />
+                </TitFly>
+                <SettingsDepart pose={this.props.settings.show ? 'show' : 'hide'}>
+                  <Settings />
+                </SettingsDepart>
+                <Header>
+                  <Logo theme={this.props.settings.theme} />
+                  <ShowSettings onClick={() => {this.props.toggleSettingsShow(this.props.settings.show)}} />
+                </Header>
+                <Content>
+                  <PoseGroup>
+                    <PageFading key={`page-${location.pathname}`}>
+                      <Switch location={location}>
+                        <Route exact path="/" component={Request} key="request" />
+                        <Route path="/weather" component={Weather} key="weather" />
+                      </Switch>
+                    </PageFading>
+                  </PoseGroup>
+                </Content>
+              </AppContainer>
+            </ThemeProvider>
+          )}
+        />
+      </Router>
+    )
+  }
+}
 
 
-const storeToProps = store => ({
-  state: {
-    settings: store.settings,
-  },
+const mapStateToProps = store => ({
+  settings: store.settings,
 });
-const Root = connect(storeToProps)(App);
+const mapDispatchToProps = dispatch => ({
+    toggleSettingsShow: value => dispatch(toggleSettingsShow(value)),
+});
 
-export default Root;
+export default connect(mapStateToProps, mapDispatchToProps)(Root);

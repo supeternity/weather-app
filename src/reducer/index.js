@@ -1,13 +1,9 @@
-const hours = new Date().getHours();
+import { combineReducers } from 'redux';
 
-export const initialState = {
-  settings: {
-    show: true,
-    theme: hours > 8 && hours < 23 ? 'day' : 'night',
-  },
-  weatherObject: null,
-}
+import { settingsReducer } from './settings';
+import { weatherReducer } from './weather';
 
-export function rootReducer(state = initialState) {
-  return state;
-}
+export const rootReducer = combineReducers({
+  settings: settingsReducer,
+  weather: weatherReducer,
+})
