@@ -8,6 +8,7 @@ const applyTheme = (name) => {
     fontFamilySecondLight: '300',
     fontFamilySecondNormal: '400',
     fontSize: '1.63vw',
+    mainSignalColor: '#E52620',
     backgroundColor: (() => {
       switch (name) {
         case 'day':
