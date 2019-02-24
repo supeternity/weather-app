@@ -155,7 +155,7 @@ const mapStateToProps = store => ({
   settings: store.settings,
 });
 const mapDispatchToProps = dispatch => ({
-    toggleSettingsShow: value => dispatch(toggleSettingsShow(value)),
+  toggleSettingsShow: value => dispatch(toggleSettingsShow(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root);

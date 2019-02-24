@@ -1,10 +1,13 @@
 const applyTheme = (name) => {
   const theme = {
     fontFamily: 'Roboto',
+    fontFamilyLight: '300',
+    fontFamilyNormal: '400',
+    fontFamilyBold: '500',
     fontFamilySecond: 'Roboto Condensed',
+    fontFamilySecondLight: '300',
+    fontFamilySecondNormal: '400',
     fontSize: '1.63vw',
-    fontSizeH1: '1.55em',
-    fontSizeMicro: '0.7em',
     backgroundColor: (() => {
       switch (name) {
         case 'day':

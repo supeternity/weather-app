@@ -1,9 +1,13 @@
 import React from 'react';
 
-const Weather = () => (
+import Day from './Weather/Day';
+import Week from './Weather/Week';
+
+const Weather = React.memo(props => (
   <>
-    weather dashboard
+    <Day />
+    <Week />
   </>
-)
+));
 
 export default Weather;
