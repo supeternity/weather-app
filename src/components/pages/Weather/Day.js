@@ -6,8 +6,11 @@ import compassHud from '../../../resources/compass-hud.svg';
 import compassArrow from '../../../resources/compass-arrow.svg';
 
 const Container = styled.div`
-  padding-top: 7.6vh;
-  line-height: 5.2vh;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 35.5% 18.2%;
+  margin-top: 15vh;
+  line-height: 7.6vh;
 `;
 const Place = styled.h1`
   display: inline-block;
@@ -23,12 +26,12 @@ const Date = styled.div`
 `;
 const Temp = styled.div`
   display: inline-block;
-  margin-left: 8vw;
   margin-top: -4.8vh;
-  padding-left: 9vw;
+  padding-left: 13vw;
   vertical-align: top;
   background: url(${p => p.showIcon}) no-repeat left top 2vh;
   background-size: 33%;
+  text-align: left;
 `;
 const TempValue = styled.span`
   font-size: 6.25em;
@@ -50,7 +53,6 @@ const Wind = styled.div`
   display: inline-block;
   vertical-align: top;
   margin-top: -1.5vh;
-  margin-left: 4.4vw;
   font-size: 1.4em;
   font-weight: 300;
 `;
@@ -86,32 +88,33 @@ const WindVerbalise = styled.span`
   font-size: 0.74em;
 `;
 
-
 const Day = React.memo(props => (
   <Container>
     <Place>
-      Санкт-Петербург
-      <Date>21 февраля</Date>
+      {props.city}
+      <Date>{props.oneDayMonitor.date}</Date>
     </Place>
-    <Temp showIcon={'https://www.metaweather.com/static/img/weather/hc.svg'}>
+    <Temp showIcon={`${props.weatherStaticExternal}${props.oneDayMonitor.weatherStateAbbr}.svg`}>
       <TempValue>
-        -12
-        <TempSystem>C°</TempSystem>
+        {props.oneDayMonitor.middleTempCentigrade}
+        <TempSystem>{props.weatherTempUnit}</TempSystem>
       </TempValue>
       <TempRange>
-        -13...-11
-        <TempSystemInText>C°</TempSystemInText>
+        {props.oneDayMonitor.minTempCentigrade}
+          ...&nbsp;
+        {props.oneDayMonitor.maxTempCentigrade}
+        <TempSystemInText>{props.weatherTempUnit}</TempSystemInText>
       </TempRange>
     </Temp>
     <Wind>
       Ветер
       <WindSpeed>
-        19
+        &nbsp;{props.oneDayMonitor.windSpeedKmph}
       </WindSpeed>
-      <SpeedSystem>км/ч</SpeedSystem>
+      <SpeedSystem>{props.weatherSpeedUnit}</SpeedSystem>
       <WindCompass>
-        <WindCompassArrow direction={360} />
-        <WindVerbalise>Северо-Западный</WindVerbalise>
+        <WindCompassArrow direction={props.oneDayMonitor.windDirection} />
+        <WindVerbalise>{props.oneDayMonitor.windCompass}</WindVerbalise>
       </WindCompass>
     </Wind>
   </Container>

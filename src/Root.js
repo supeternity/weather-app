@@ -63,6 +63,7 @@ const ShowSettings = styled.div`
   background: url(${gear}) no-repeat center center;
   background-size: contain;
   cursor: pointer;
+  z-index: 1;
 `;
 const Content = styled.div`
   width: 100%;

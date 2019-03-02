@@ -22,9 +22,9 @@ const applyTheme = (name) => {
     backgroundColorSecond: (() => {
       switch (name) {
         case 'day':
-          return '#F9F9FD';
+          return '#00000008';
         case 'night':
-          return '#27282B';
+          return '#ffffff03';
         default:
           return 'hotpink';
       }
@@ -42,7 +42,7 @@ const applyTheme = (name) => {
     elementColorSecond: (() => {
       switch (name) {
         case 'day':
-          return '#DDDCDC';
+          return '#bebdbc';
         case 'night':
           return '#5B5B5D';
         default:
