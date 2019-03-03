@@ -54,7 +54,7 @@ export class Weather extends React.Component {
           <>
             <Loader />
             <Notification
-              message={'Загрузка погодных данных...'} />
+              message={'Загружаем погоду...'} />
           </>
         )
       } else if (!geoDataRequesting || !weatherFetching) {
