@@ -112,11 +112,10 @@ const PageFading = posed.div({
   exit: { opacity: 0 }
 });
 
-
 export class Root extends React.Component {
   render () {
     return (
-      <Router>
+      <Router basename={process.env.REACT_APP_PUBLIC_URL}>
         <Route
           render = {({ location }) => (
             <ThemeProvider theme={applyTheme(this.props.settings.theme)}>
