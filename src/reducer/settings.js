@@ -6,6 +6,7 @@ const getTimesOfDay = () => {
 const initialState = {
   show: false,
   theme: getTimesOfDay(),
+  locale: 'ru'
 }
 
 export function settingsReducer(state = initialState, action) {

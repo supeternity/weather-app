@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import DateTracer from '../../ui/DateTracer';
+
 
 import compassHud from '../../../resources/compass-hud.svg';
 import compassArrow from '../../../resources/compass-arrow.svg';
@@ -88,11 +90,12 @@ const WindVerbalise = styled.span`
   font-size: 0.74em;
 `;
 
+
 const Day = React.memo(props => (
   <Container>
     <Place>
       {props.city}
-      <Date>{props.oneDayMonitor.date}</Date>
+      <Date>{DateTracer(props.oneDayMonitor.date, 'long', props.locale)}</Date>
     </Place>
     <Temp showIcon={`${props.weatherStaticExternal}${props.oneDayMonitor.weatherStateAbbr}.svg`}>
       <TempValue>

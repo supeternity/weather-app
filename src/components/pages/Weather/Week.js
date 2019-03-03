@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import DateTracer from '../../ui/DateTracer';
 import WeekDay from './WeekDay';
 
 
@@ -20,13 +21,21 @@ const Container = styled.div`
 
 export class Week extends React.Component {
 
-  calendarFabric() {
-    const list = this.props.weekCalendar.map(day => {
+  calendarFactory() {
+    const list = this.props.weekCalendar.map((day, i) => {
+      if (i === 0) {
+        day.date = 'Сегодня';
+      } else if (i === 1) {
+        day.date = 'Завтра';
+      } else {
+        day.date = DateTracer(day.date, 'short', this.props.locale);
+      }
       return <WeekDay
+        key={i}
         weekDay={day}
         weatherStaticExternal={this.props.weatherStaticExternal}
         weatherTempUnit={this.props.weatherTempUnit}
-        weatherSpeedUnit={this.props.weatherSpeedUnit}/>
+        weatherSpeedUnit={this.props.weatherSpeedUnit} />
     });
     return list;
   };
@@ -34,7 +43,7 @@ export class Week extends React.Component {
   render() {
     return (
       <Container weekColumns={this.props.calendarCols}>
-        {this.calendarFabric()}
+        {this.calendarFactory()}
       </Container>
     );
   }

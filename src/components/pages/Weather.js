@@ -18,6 +18,9 @@ export class Weather extends React.Component {
   render () {
 
     const {
+      locale
+    } = this.props.settings;
+    const {
       geoSupportCheck,
       geoDataRequesting,
       weatherFetching,
@@ -26,7 +29,7 @@ export class Weather extends React.Component {
       weatherSelectedDay,
       weatherTempUnit,
       weatherSpeedUnit
-    } = this.props.state;
+    } = this.props.weather;
     const {
       geoDataRequest,
       weatherDataRequest
@@ -61,6 +64,7 @@ export class Weather extends React.Component {
               weatherTempUnit={weatherTempUnit}
               weatherSpeedUnit={weatherSpeedUnit}
               weatherStaticExternal={weatherStaticExternal}
+              locale={locale}
               oneDayMonitor={
                 weatherSource.consolidated[weatherSelectedDay]
               } />
@@ -69,6 +73,7 @@ export class Weather extends React.Component {
               weatherTempUnit={weatherTempUnit}
               weatherSpeedUnit={weatherSpeedUnit}
               weatherStaticExternal={weatherStaticExternal}
+              locale={locale}
               calendarCols={weatherSource.consolidated.length} />
           </>
         )
@@ -86,7 +91,8 @@ export class Weather extends React.Component {
 
 
 const mapStateToProps = store => ({
-  state: store.weather,
+  weather: store.weather,
+  settings: store.settings
 });
 const mapDispatchToProps = dispatch => ({
   actions: {
