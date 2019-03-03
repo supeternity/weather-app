@@ -18,6 +18,7 @@ export class Weather extends React.Component {
   render () {
 
     const {
+      theme,
       locale
     } = this.props.settings;
     const {
@@ -65,6 +66,7 @@ export class Weather extends React.Component {
               weatherSpeedUnit={weatherSpeedUnit}
               weatherStaticExternal={weatherStaticExternal}
               locale={locale}
+              theme={theme}
               oneDayMonitor={
                 weatherSource.consolidated[weatherSelectedDay]
               } />

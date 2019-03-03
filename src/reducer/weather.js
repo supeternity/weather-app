@@ -21,7 +21,7 @@ export function weatherReducer(state = initialState, action) {
       return { ...state,
         weatherSource: action.payload,
         weatherTempUnit: 'C°',
-        weatherSpeedUnit: 'км/ч',
+        weatherSpeedUnit: 'm/s',
         weatherSelectedDay: 0,
         weatherFetching: false
       }

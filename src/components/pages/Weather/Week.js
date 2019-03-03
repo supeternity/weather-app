@@ -23,15 +23,12 @@ export class Week extends React.Component {
 
   calendarFactory() {
     const list = this.props.weekCalendar.map((day, i) => {
-      if (i === 0) {
-        day.date = 'Сегодня';
-      } else if (i === 1) {
-        day.date = 'Завтра';
-      } else {
-        day.date = DateTracer(day.date, 'short', this.props.locale);
-      }
+
+      day.dateWeek = DateTracer(day.date, 'short', this.props.locale);
+
       return <WeekDay
-        key={i}
+        key={`week-day-${i}`}
+        tick={i}
         weekDay={day}
         weatherStaticExternal={this.props.weatherStaticExternal}
         weatherTempUnit={this.props.weatherTempUnit}
