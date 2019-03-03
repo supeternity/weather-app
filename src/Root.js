@@ -63,6 +63,7 @@ const ShowSettings = styled.div`
   background: url(${gear}) no-repeat center center;
   background-size: contain;
   cursor: pointer;
+  z-index: 1;
 `;
 const Content = styled.div`
   width: 100%;
@@ -155,7 +156,7 @@ const mapStateToProps = store => ({
   settings: store.settings,
 });
 const mapDispatchToProps = dispatch => ({
-    toggleSettingsShow: value => dispatch(toggleSettingsShow(value)),
+  toggleSettingsShow: value => dispatch(toggleSettingsShow(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root);

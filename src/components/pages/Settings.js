@@ -10,18 +10,19 @@ import { toggleSettingsShow, toggleTheme } from '../../actions/settings';
 const Page = styled.div`
   width: 38vw;
   height: 100vh;
-  padding: 10.8vh 4.25vw;
+  padding: 10.5vh 4.25vw;
   padding-bottom: 0;
   box-sizing: border-box;
   overflow: hidden;
   background-color: ${p => p.theme.backgroundColor};
 `;
-const Header = styled.div`
+const Header = styled.h2`
   position: relative;
+  margin: 0;
   margin-bottom: 4vh;
   font-family: '${p => p.theme.fontFamilySecond}', sans-serif;
   font-weight: 300;
-  font-size: ${p => p.theme.fontSizeH1};
+  font-size: 1.55em;
 `;
 const Close = styled.div`
   position: absolute;
@@ -32,7 +33,7 @@ const Close = styled.div`
   height: 2.3vw;
   min-height: 24px;
   font-family: '${p => p.theme.fontFamily}', sans-serif;
-  font-size: ${p => p.theme.fontSizeH1};
+  font-size: 1.6em;
   cursor: pointer;
 `;
 const Item = styled.div`
@@ -56,7 +57,7 @@ const Disclamer = styled.div`
   right: 4.25vw;
   bottom: 10.8vh;
   font-family: '${p => p.theme.fontFamilySecond}', sans-serif;
-  font-size: ${p => p.theme.fontSizeMicro};
+  font-size: 0.7em;
   text-align: right;
   color: ${p => p.theme.elementColorSecond};
 `;

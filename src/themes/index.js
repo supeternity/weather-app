@@ -1,10 +1,14 @@
 const applyTheme = (name) => {
   const theme = {
     fontFamily: 'Roboto',
+    fontFamilyLight: '300',
+    fontFamilyNormal: '400',
+    fontFamilyBold: '500',
     fontFamilySecond: 'Roboto Condensed',
+    fontFamilySecondLight: '300',
+    fontFamilySecondNormal: '400',
     fontSize: '1.63vw',
-    fontSizeH1: '1.55em',
-    fontSizeMicro: '0.7em',
+    mainSignalColor: '#E52620',
     backgroundColor: (() => {
       switch (name) {
         case 'day':
@@ -18,9 +22,9 @@ const applyTheme = (name) => {
     backgroundColorSecond: (() => {
       switch (name) {
         case 'day':
-          return '#F9F9FD';
+          return '#00000008';
         case 'night':
-          return '#27282B';
+          return '#ffffff03';
         default:
           return 'hotpink';
       }
@@ -38,7 +42,7 @@ const applyTheme = (name) => {
     elementColorSecond: (() => {
       switch (name) {
         case 'day':
-          return '#DDDCDC';
+          return '#bebdbc';
         case 'night':
           return '#5B5B5D';
         default:

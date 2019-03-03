@@ -1,8 +1,12 @@
 const hours = new Date().getHours();
+const getTimesOfDay = () => {
+  return hours > 8 && hours < 23 ? 'day' : 'night';
+}
 
 const initialState = {
   show: false,
-  theme: hours > 8 && hours < 23 ? 'day' : 'night',
+  theme: getTimesOfDay(),
+  locale: 'ru'
 }
 
 export function settingsReducer(state = initialState, action) {
