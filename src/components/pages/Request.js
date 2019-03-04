@@ -9,6 +9,7 @@ const Page = styled.div`
 
 const button = {
   display: 'inline-block',
+  marginTop: '6.2vh',
   padding: '1.42vh 3.35vw 1.46vh',
   backgroundColor: '#FCD836',
   textDecoration: 'none',
