@@ -8,6 +8,7 @@ import Notification from '../ui/Notification';
 
 import {
   getGeoAccess,
+  getGeoFromIp,
   getWeatherData
 } from '../../actions/weather';
 
@@ -29,10 +30,12 @@ export class Weather extends React.Component {
       weatherSource,
       weatherSelectedDay,
       weatherTempUnit,
-      weatherSpeedUnit
+      weatherSpeedUnit,
+      geoError
     } = this.props.weather;
     const {
       geoDataRequest,
+      geoDataIPRequest,
       weatherDataRequest
     } = this.props.actions;
 
@@ -40,14 +43,27 @@ export class Weather extends React.Component {
     if (geoSupportCheck) {
       // // 
       if (geoDataRequesting) {
-        geoDataRequest();
-        return (
-          <>
-            <Loader />
-            <Notification
-              message={'Разрешите доступ к геоданным'} />
-          </>
-        )
+        // geoError - by first request Geo from browser
+        if (!geoError) {
+          geoDataRequest();
+          return (
+            <>
+              <Loader />
+              <Notification
+                message={'Разрешите доступ к геоданным'} />
+            </>
+          )
+        // code 1 : User denied Geolocation
+        } else if (geoError.code === 1) {
+          geoDataIPRequest();
+          return (
+            <>
+              <Loader />
+              <Notification
+                message={'Определяем местопложение...'} />
+            </>
+          )
+        }        
       } else if (weatherFetching) {
         weatherDataRequest(`${geoPosition.latitude},${geoPosition.longitude}`);
         return (
@@ -99,6 +115,7 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   actions: {
     geoDataRequest: () => dispatch(getGeoAccess()),
+    geoDataIPRequest: () => dispatch(getGeoFromIp()),
     weatherDataRequest: coords => dispatch(getWeatherData(coords)),
   }
 });

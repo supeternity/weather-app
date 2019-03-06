@@ -4,18 +4,41 @@ const GET_GEO_ERROR = 'GET_GEO_ERROR';
 export const getGeoAccess = () => {
   return dispatch => {
     navigator.geolocation.getCurrentPosition(
-    (position) => {
+    position => {
       dispatch({
         type: GET_GEO_SUCCESS,
         payload: position
       })
     },
-    (error) => {
+    err => {
       dispatch({
         type: GET_GEO_ERROR,
-        payload: error
+        payload: err
       })
     });
+  }
+}
+
+
+const GET_GEO_IP_SUCCESS = 'GET_GEO_IP_SUCCESS';
+const GET_GEO_IP_ERROR = 'GET_GEO_IP_ERROR';
+
+export const getGeoFromIp = () => {
+  return dispatch => {
+    fetch('http://www.geoplugin.net/json.gp')
+    .then(res => res.json())
+    .then(json => {
+      dispatch({
+        type: GET_GEO_IP_SUCCESS,
+        payload: json
+      })
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_GEO_IP_ERROR,
+        payload: err
+      })
+    })
   }
 }
 

@@ -14,8 +14,22 @@ export function weatherReducer(state = initialState, action) {
       }
     case 'GET_GEO_ERROR':
       return { ...state,
-        geoError: action.palyload,
-        geoDataRequesting: false
+        geoError: action.payload
+      }
+    case 'GET_GEO_IP_SUCCESS':
+      return { ...state,
+        geoPosition:{
+          latitude: action.payload.geoplugin_latitude,
+          longitude: action.payload.geoplugin_longitude
+        },
+        geoDataRequesting: false,
+        weatherFetching: true
+      }
+    case 'GET_GEO_IP_ERROR':
+      return { ...state,
+        geoIpError: action.payload,
+        geoDataRequesting: false,
+        weatherFetching: false
       }
     case 'GET_WEATHER_SUCCESS':
       return { ...state,
